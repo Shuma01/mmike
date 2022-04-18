@@ -1,0 +1,658 @@
+html {
+  scroll-behavior: smooth;
+}
+
+body{
+  font-family: 'Zen Maru Gothic', sans-serif;
+  overflow-x: hidden;
+  cursor: none;
+}
+/*マウスストーカー*/
+.mouse{
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  margin: -30px 0 0 -30px;/*真ん中にくるようにマイナスマージンで調整*/
+  z-index: 3;/*一番手前に来るように*/
+  pointer-events: none;/*クリックできなくなるのを防ぐため。noneで対応*/
+  opacity: 0;
+}
+
+.ato{
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  margin: -20px 0 0 -20px;/*真ん中にくるようにマイナスマージンで調整*/
+  z-index: 4;/*カーソルの後ろに来るように*/
+  pointer-events: none;/*クリックできなくなるのを防ぐため。noneで対応*/
+  opacity: 0;
+  object-fit: cover;
+}
+/*ロード画面*/
+.loading{
+  position: fixed;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  background-color:#1e1e1e;
+  z-index: 100;
+  -webkit-animation: byeShutter 2.6s forwards;
+  animation: byeShutter 2.6s forwards;
+}
+
+@keyframes byeShutter {
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    display: none;
+    z-index: -1;
+  }
+}
+
+
+
+.loading::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  margin: auto;
+  background-color: #fff;
+  width: 0;
+  height: 1px;
+  -webkit-animation: shutterOpen 2.6s forwards;
+  animation: shutterOpen 2.6s forwards;
+}
+
+@keyframes shutterOpen {
+  0% {
+    width: 0;
+    height: 1px;
+  }
+  50% {
+    width: 100%;
+    height: 1px;
+  }
+  90% {
+    width: 100%;
+    height: 100%;
+  }
+  100% {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+/*ロード画面ここまで*/
+
+.all-wrap{
+  -webkit-animation: contentScale 2.6s forwards;
+  animation: contentScale 2.6s forwards;
+}
+
+@keyframes contentScale {
+  70% {
+    -webkit-transform: perspective(800px) scale(0.9) rotateX(15deg);
+            transform: perspective(800px) scale(0.9) rotateX(15deg);
+  }
+  100% {
+    -webkit-transform: perspective(800px) scale(1) rotateX(0);
+            transform: perspective(800px) scale(1) rotateX(0);
+  }
+}
+
+/* header  footerここから*/
+header{
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+h1{
+  margin-left: 20px;
+  font-size: 40px;
+}
+
+header ul{
+  display: flex;
+  align-items: center;
+  font-size: 30px;
+}
+
+
+header ul a,footer ul a{
+  position: relative;
+  display: block;
+  margin-left: 30px;
+  padding: 20px 30px;
+  position: relative;
+}
+
+header ul a::after,footer ul a::after{
+  position: absolute;
+  left: 0;
+  content: '';
+  width: 100%;
+  height: 2px;
+
+  bottom: -1px;
+  transform: scale(0, 1);
+  transform-origin: right top; /*変形（アンダーラインの伸長）の原点がaタグ（各メニュー）の右端*/
+  transition: transform 0.3s;  /*変形の時間*/
+  }
+
+header ul a::after{
+  background: #ffffff;
+}
+
+header a:hover::after,footer a:hover::after {
+  transform: scale(1, 1);     /*ホバー後、x軸方向に1（相対値）伸長*/
+  transform-origin: left top; /*左から右に向かう*/
+  }
+
+
+  footer{
+    display: flex;
+    justify-content: space-around;
+    position: relative;
+  }
+  
+  footer ul{
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    text-align: center;
+    font-size: 20px;
+  }
+  
+  footer a{
+    height: 70px;
+    width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  footer ul a::after{
+    background: #000000;
+  }
+  
+  footer .cat{
+    width: 80px;
+    height: 80px;
+  }
+/* header  footerここまで*/
+
+/* mv ここから*/
+.mv{
+  background-position: left;
+  background-attachment: fixed;
+  background-size: cover;
+  background-repeat:no-repeat;
+  height: 100vh;
+  color: #fff; 
+  position: relative;
+  left: 0;
+  width: 100vw;
+}
+
+.mv::before{
+  content: "";
+  background: rgba(0, 0, 0, 0.3);
+  position: absolute;
+  top: 0;  bottom: 0;
+  left: 0;  right: 0;
+  background-size: cover;
+}
+
+.mv h2{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 50px;
+  font-size: 120px;
+  position: relative;
+  z-index: 1;
+  background: #cccccc;
+  height: 600px;
+  width: 600px;
+  border-radius: 50%;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -ms-writing-mode: tb-rl;
+  writing-mode: vertical-rl;
+}
+
+/* header ここまで*/
+/*全体*/
+.wrapper{
+  background: #ddd;
+  width: 100vw;
+}
+
+
+.container{
+  width: 1200px;
+  margin: 0 auto;
+}
+
+section h2{
+  padding-top: 50px;
+  font-size: 60px;
+  margin-right: 0;
+}
+
+section{
+  margin: 0 auto;
+  height: 100vh;
+  width: 100%;
+}
+/* about me skill contact*/
+
+.about,.me,.skill{
+  -ms-writing-mode: tb-rl;
+  writing-mode: vertical-rl;
+  padding-top: 100px;
+  margin-bottom: 120px;
+}
+
+
+.about p,.me p{
+  font-size: 40px;
+  margin: 0 50px;
+
+}
+
+.about .left{
+  position: relative;
+  left: -500px;
+  opacity: 0;
+}
+
+
+.about .right{
+  position: relative;
+  right: -500px;
+  opacity: 0;
+}
+
+
+.about .cat{
+  width: 600px;
+  height: 600px;
+  object-fit: cover;
+}
+
+.me .cat{
+  width: 600px;
+  object-fit: cover;
+  opacity: 0;
+}
+.skill .cat{
+  display: flex;
+  width: 500px;    
+  height: 500px;
+  object-fit: contain;
+  margin-top: auto;
+  opacity: 0;
+}
+
+
+.cats h2,.contact h2{
+  display: block;
+  width: 1200px;
+  margin: 0 auto;
+  text-align: right;
+}
+
+.sm-diamondswrap{
+  text-align: center;
+  display: none;
+}
+
+.item{
+  transition: 0.5s;
+}
+
+.item:hover{
+  transform: rotate(360deg);
+}
+
+
+.diamondswrap{
+  text-align: center;
+}
+
+
+.act{
+  width: 100px;
+  height: 100px;
+  position: relative;
+  z-index: 1;
+}
+
+
+.skill{
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+
+.moku{
+  background-image: url(../img/moku.png);
+  background-size: contain;
+  background-repeat:no-repeat;
+  width: 680px;
+  height:300px;
+  position: relative;
+  left: -100px;
+  top: 0px;
+
+  -ms-writing-mode: lr-td;
+  writing-mode: horizontal-tb;
+}
+
+.moku p{
+  position: absolute;
+  font-size: 30px;
+  margin: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 85%;
+  height: 50%;
+}
+
+/*コンタクト*/
+table{
+  border-spacing: 20px 10px;
+  border-collapse: separate;
+  font-size: 25px;
+  margin: 50px auto;
+}
+th{
+  background: #fff;
+  padding: 20px 40px;
+}
+form{
+  margin: 0 auto;
+  z-index: 1;
+  position: relative;
+}
+
+.send{
+  text-align: center;
+  font-size: 20px;
+  display: block;
+  color: rgb(0, 0, 0);
+  padding: 1.25rem 3rem;
+  border-width: 2px;
+  border-style: solid;
+  border-color: rgb(0, 0, 0);
+  border-image: initial;
+  border-radius: 0.5rem;
+  background: rgb(255, 255, 255);
+  margin: 0 auto;
+  transition: 0.3s;
+}
+
+.send:hover{
+  color: #fff;
+  border-color: #fff;
+  background: #000;
+}
+
+.contact{
+  position: relative;
+}
+
+.contact .cat{
+  width: 400px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+
+/*🍔*/
+.hum{
+  display: none;
+  font-size: 30px;
+}
+
+.hum li{
+  height: 100px;
+  position: relative;
+}
+
+.hum a{
+  display: block;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 50%;
+}
+
+.btn-trigger {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  width: 50px;
+  height: 44px;
+  cursor: pointer;
+  z-index: 10;
+}
+.btn-trigger span {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background-color: #fff;
+  border-radius: 4px;
+}
+.btn-trigger, .btn-trigger span {
+  display: none;
+  transition: all .5s;
+  box-sizing: border-box;
+}
+.btn-trigger span:nth-of-type(1) {
+  top: 0;
+}
+.btn-trigger span:nth-of-type(2) {
+  top: 20px;
+}
+.btn-trigger span:nth-of-type(3) {
+  bottom: 0;
+}
+#btn09.active span:nth-of-type(1) {
+  -webkit-transform: translateY(20px) rotate(315deg);
+  transform: translateY(20px) rotate(315deg);
+}
+#btn09.active span:nth-of-type(2) {
+  opacity: 0;
+}
+#btn09.active span:nth-of-type(3) {
+  -webkit-transform: translateY(-20px) rotate(-315deg);
+  transform: translateY(-20px) rotate(-315deg);
+}
+
+@media (max-width: 768px) {
+  .hum{
+    display: block;
+    text-align: center;
+    position: fixed;
+    top: 0;
+    left: -2000px;
+    z-index: 2;
+    margin-left: 0;
+    background-color: #ccc;
+    height: 100vh;
+    width: 100vw;
+    transition:0.2s;
+    animation: move-bye 1s ease-out forwards;
+  }
+
+  @keyframes move-bye {
+    0%{
+      left: 0;
+    }
+
+    100%{
+      left: -2000px;
+    }
+  }
+
+  .hum a:hover{
+    color: rgba(0, 0, 0, 0.5);
+  }
+
+  .hum.active{
+  left: 0;
+  animation: move-come 1s ease-out forwards;
+  opacity: 1;
+  }
+
+  @keyframes move-come {
+    0%{
+      left: -2000px;
+    }
+
+    100%{
+      left: 0;
+      opacity: 1;
+    }
+  }
+
+  header{
+    display: none;
+  }
+  .btn-trigger, .btn-trigger span {
+    display: inline-block;
+  }
+  .mv h2{
+    font-size:50px;
+    height: 300px;
+    width: 300px;
+    margin-left: 20px;
+    left: 10%;
+    top: 30%;
+  }
+  .mv{
+    background-position: right;
+  }
+
+  .container{
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  section{
+    height: 100vh;
+  }
+
+  section h2{
+    padding-top: 50px;
+    font-size: 40px;
+  }
+
+  .about p,.me p{
+    font-size: 25px;
+    margin: 0 20px;
+  
+  }
+
+  .about h2,.me h2{
+    margin-right: 30px;
+  }
+  .about .cat{
+    width: 300px;
+    height: 300px;
+  }
+
+  .item{
+    transition: 0.5s;
+    height: 100px;
+    width: 100px;
+  }
+  
+  .diamondswrap{
+    display: none;
+  }
+  .cats h2,.contact h2{
+    display: block;
+    width: 90%;
+    margin: 0 auto;
+    text-align: right;
+  }
+
+  .sm-diamondswrap{
+    display: block;
+  }
+
+  .me .cat{
+    width: 300px;
+    height: 300px;
+  }
+
+  .skill .cat{
+    width: 250px;    
+    height: 250px;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+
+  .moku{
+    width: 340px;
+    height:150px;
+    position: relative;
+    left: -50px;
+    top: 0px;
+  
+    -ms-writing-mode: lr-td;
+    writing-mode: horizontal-tb;
+  }
+
+  .moku p{
+    font-size: 20px;
+  }
+
+  .act{
+    width: 80px;
+    height: 80px;
+  }
+
+  table{
+    border-spacing: 10px 5px;
+    border-collapse: separate;
+    font-size: 20px;
+    margin: 20px auto;
+  }
+  th{
+    padding: 10px 20px;
+  }
+
+  .send{
+    font-size: 20px;
+    display: block;
+    color: rgb(0, 0, 0);
+    padding: 20px 40px;
+  }
+
+  footer{
+display: none;
+  }
+
+}
+@media (max-width: 575.98px) {
+
+  
+}
